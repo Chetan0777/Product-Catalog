@@ -28,7 +28,7 @@ public class ProductCatalog {
 	                System.out.println(product);
 	            }
 	            System.out.println("=================================");
-	            System.out.println("\nSort by (name/price/exit): ");
+	            System.out.println("\nSort by (name/price/search/exit): ");
 	            sortBy = scanner.nextLine().toLowerCase();
 
 	            if (sortBy.equals("name")) {
@@ -37,7 +37,26 @@ public class ProductCatalog {
 	                productList.sort(Comparator.comparing(Product::getName));
 	            } else if (sortBy.equals("price")) {
 	                productList.sort(Comparator.comparing(Product::getPrice));
-	            } else if (sortBy.equals("exit")) {
+	            } else if (sortBy.equals("search")) {
+	                System.out.println("Enter search query: ");
+	                String query = scanner.nextLine().toLowerCase();
+	                List<Product> searchResults = new ArrayList<>();
+	                for (Product product : productList) {
+	                    if (product.getName().toLowerCase().contains(query)
+	                            || product.getDescription().toLowerCase().contains(query)) {
+	                        searchResults.add(product);
+	                    }
+	                }
+	                if (searchResults.isEmpty()) {
+	                    System.out.println("No matching products found.");
+	                } else {
+	                    System.out.println("Search results:");
+	                    for (Product product : searchResults) {
+	                    	System.out.println("================================");
+	                        System.out.println(product);
+	                    }
+	                }
+	              } else if (sortBy.equals("exit")) {
 	                System.out.println("Exiting from the program.");
 	                return;
 	            } else {
